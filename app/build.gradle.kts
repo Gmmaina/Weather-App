@@ -20,7 +20,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -59,4 +60,7 @@ dependencies {
 
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
+    implementation(libs.androidx.runtime.livedata)
+
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }

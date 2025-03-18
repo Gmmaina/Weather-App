@@ -23,12 +23,11 @@ class MainActivity : ComponentActivity() {
             WeatherAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     WeatherPage(
-                        modifier = Modifier.padding(innerPadding),
-                        weatherViewModel
+                        weatherViewModel,
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
     }
 }
-
