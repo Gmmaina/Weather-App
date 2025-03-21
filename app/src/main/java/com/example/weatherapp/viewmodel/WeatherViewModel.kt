@@ -21,17 +21,16 @@ class WeatherViewModel : ViewModel() {
             try {
                 val response = weatherApi.getWeather(Constants.APIKEY, city)
 
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     response.body()?.let {
                         _weatherResponse.value = NetworkResponse.Success(it)
                     }
-                }else{
+                } else {
                     _weatherResponse.value = NetworkResponse.Error("Failed to fetch data.")
                 }
-            }catch (e: Exception){
-                _weatherResponse.value = NetworkResponse.Error("Error: ${e.message}")
+            } catch (e: Exception) {
+                _weatherResponse.value = NetworkResponse.Error("Error")
             }
-
         }
     }
 }

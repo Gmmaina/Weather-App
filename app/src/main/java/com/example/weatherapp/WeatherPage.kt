@@ -1,11 +1,13 @@
 package com.example.weatherapp
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
@@ -60,9 +62,17 @@ fun WeatherPage(weatherViewModel: WeatherViewModel, modifier: Modifier) {
                 onValueChange = {
                     city = it
                 },
-                label = {
-                    Text(
-                        text = "Enter Location..."
+                label = {Text(text = "Enter Location...")},
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        "Search",
+                        tint = Color.LightGray,
+                        modifier = Modifier.clickable {
+                            weatherViewModel.getData(city)
+                            keyboardController?.hide()
+                        }
+                            .size(30.dp)
                     )
                 },
                 textStyle = TextStyle(
@@ -71,28 +81,39 @@ fun WeatherPage(weatherViewModel: WeatherViewModel, modifier: Modifier) {
                 )
             )
 
-            IconButton(onClick = {
-                weatherViewModel.getData(city)
-                keyboardController?.hide()
-            }) {
-                Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
-            }
+//            IconButton(onClick = {
+//                weatherViewModel.getData(city)
+//                keyboardController?.hide()
+//            }) {
+//                Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
+//            }
         }
 
-        when(val result = weatherResult.value){
+        when (val result = weatherResult.value) {
             is NetworkResponse.Success -> {
                 WeatherDetails(data = result.data)
             }
             is NetworkResponse.Error -> {
-                Text(
-                    text = result.message
-                )
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = result.message,
+                        color = Color.Red
+                    )
+                }
             }
             NetworkResponse.Loading -> {
-                CircularProgressIndicator()
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator()
+                }
             }
-
             null -> {}
         }
+
     }
 }

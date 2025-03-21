@@ -1,6 +1,6 @@
 package com.example.weatherapp
 
-import android.util.Log
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
@@ -19,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -80,51 +81,37 @@ fun WeatherDetails(data: WeatherModel) {
 
         Spacer(Modifier.height(16.dp))
 
-        Card {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             Column(
-                Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherKeyVal("Humidity", data.current.humidity)
-                    WeatherKeyVal("Heat Index", "${data.current.heatindex_c}° C")
-
-                }
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherKeyVal("UV", data.current.uv)
-                    WeatherKeyVal("Pressure", "${data.current.pressure_mb} mb")
-                }
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherKeyVal("Wind Direction", data.current.wind_dir)
-                    WeatherKeyVal("Wind Speed", "${data.current.wind_kph} kph")
-                }
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherKeyVal("Local Time", data.location.localtime.split(" ")[1])
-                    WeatherKeyVal("Local Date", data.location.localtime.split(" ")[0])
-                }
+                WeatherKeyVal("Humidity", data.current.humidity)
+                WeatherKeyVal("Heat Index", "${data.current.heatindex_c}° C")
+                WeatherKeyVal("UV", data.current.uv.toString())
+                WeatherKeyVal("Pressure", "${data.current.pressure_mb} mb")
+                WeatherKeyVal("Wind Direction", data.current.wind_dir)
+                WeatherKeyVal("Wind Speed", "${data.current.wind_kph} kph")
+                WeatherKeyVal("Local Time", data.location.localtime.split(" ")[1])
+                WeatherKeyVal("Local Date", data.location.localtime.split(" ")[0])
             }
         }
+
     }
 }
 
 @Composable
 fun WeatherKeyVal(key: String, value: String) {
-    Column(
+    Row(
         Modifier.padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(value, fontSize = 24.sp, fontWeight = FontWeight.Bold)
         Text(key, fontWeight = FontWeight.SemiBold, color = Color.Gray)
+        Spacer(Modifier.weight(1f))
+        Text(value, fontSize = 24.sp, fontWeight = FontWeight.Bold)
     }
 }
