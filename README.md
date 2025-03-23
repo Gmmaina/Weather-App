@@ -20,16 +20,17 @@ A simple Android app that allows users to enter a location in a text field and f
 
 ## Screenshots
 
-1. ** Enter Location**
-    ![Enter Location](screenshots/Enter.jpeg)
+1. **Enter Location**  
+   ![Enter Location](screenshots/Enter.jpeg)
 
-2. **Loading Location Current Weather**
-    ![Loading Location Current Weather](screenshots/Loading.jpeg)]
+2. **Loading Location Current Weather**  
+   ![Loading Location Current Weather](screenshots/Loading.jpeg)
 
-3. **Display Current Weather**
-     ![Current Weather](screenshots/Current.jpeg)]
+3. **Display Current Weather**  
+   ![Current Weather](screenshots/Current.jpeg)
 
-4. **Error Handling**
-     ![Error Handling](screenshots/Failed.jpeg)]
+4. **Error Handling**  
+   ![Error Handling](screenshots/Failed.jpeg)
+
 
 
